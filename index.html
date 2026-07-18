@@ -178,17 +178,10 @@ body::after{
 .mmenu .mmenu-foot svg{width:15px;height:15px;color:var(--red-hot)}
 html.menu-open{overflow:hidden}
 
-/* ---- lockup de marca (texto, eco del logo real) ---- */
-.brand{display:flex;align-items:center;gap:12px}
-.brand .crown{width:30px;height:30px;flex:none;color:var(--red)}
-.brand-tx{display:flex;flex-direction:column;line-height:1}
-.brand-tx b{
-  font-family:var(--font-d);font-weight:400;font-size:21px;letter-spacing:.03em;
-  font-style:italic;transform:skewX(-6deg);
-  color:var(--silver);white-space:nowrap;
-}
-.brand-tx b em{font-style:inherit;color:var(--red)}
-.brand-tx span{font-size:8.5px;letter-spacing:.42em;color:var(--muted);text-transform:uppercase;margin-top:5px;font-weight:600;white-space:nowrap}
+/* ---- marca: logo original ---- */
+.brand{display:flex;align-items:center}
+.brand img{height:54px;width:auto;display:block;filter:drop-shadow(0 2px 10px rgba(0,0,0,.55))}
+.foot-brand .brand img{height:66px}
 
 /* ============================================================
    HERO
@@ -448,48 +441,43 @@ html.menu-open{overflow:hidden}
    ANTES / DESPUÉS
    ============================================================ */
 #antes-despues{background:var(--bg)}
-.ba-frame{
+/* comparador deslizable antes/después */
+.cmp{
+  --split:50%;
   position:relative;margin-top:56px;border:1px solid var(--line);overflow:hidden;
-  aspect-ratio:16/8.4;background:#000;
+  aspect-ratio:16/8.4;background:#000;cursor:ew-resize;
+  touch-action:pan-y;user-select:none;-webkit-user-select:none;
 }
-.ba-frame img{
-  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  transition:opacity .65s ease, transform 1.2s cubic-bezier(.2,.7,.2,1);
+.cmp img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 62%;
+  pointer-events:none;
 }
-.ba-frame img.off{opacity:0;transform:scale(1.04)}
-.ba-frame::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,8,10,.28),transparent 30%,transparent 70%,rgba(7,8,10,.6));pointer-events:none}
-.ba-state{
-  position:absolute;left:26px;bottom:22px;z-index:3;
-  font-family:var(--font-d);font-size:clamp(1.6rem,3.4vw,2.8rem);text-transform:uppercase;letter-spacing:.04em;
-  text-shadow:0 4px 30px rgba(0,0,0,.7);
+.cmp-before-wrap{position:absolute;inset:0;clip-path:inset(0 calc(100% - var(--split)) 0 0)}
+.cmp::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,8,10,.26),transparent 28%,transparent 74%,rgba(7,8,10,.5));pointer-events:none}
+.cmp-line{
+  position:absolute;top:0;bottom:0;left:var(--split);width:2px;margin-left:-1px;
+  background:#fff;box-shadow:0 0 18px rgba(0,0,0,.7);pointer-events:none;z-index:2;
 }
-.ba-state small{
-  display:block;font-family:var(--font-b);font-size:11px;font-weight:800;letter-spacing:.3em;color:var(--silver);margin-bottom:4px;
+.cmp-handle{
+  position:absolute;top:50%;left:var(--split);transform:translate(-50%,-50%);z-index:3;
+  width:56px;height:56px;border-radius:50%;background:var(--red);
+  display:grid;place-items:center;pointer-events:none;
+  box-shadow:0 10px 34px rgba(225,27,34,.5), 0 0 0 5px rgba(7,8,10,.4);
 }
-.ba-toggle{
-  position:absolute;top:20px;right:20px;z-index:3;display:flex;
-  background:rgba(7,8,10,.72);backdrop-filter:blur(8px);border:1px solid var(--line-2);
-  padding:5px;transform:skewX(-8deg);
+.cmp-handle svg{width:26px;height:26px;color:#fff}
+.cmp-tag{
+  position:absolute;top:16px;z-index:2;display:flex;flex-direction:column;gap:3px;
+  padding:9px 15px;background:rgba(7,8,10,.66);backdrop-filter:blur(6px);
+  border:1px solid var(--line-2);transform:skewX(-8deg);pointer-events:none;
 }
-.ba-toggle button{
-  padding:12px 24px;font-size:11.5px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);
-  transition:all .25s;
-}
-.ba-toggle button span{display:inline-block;transform:skewX(8deg)}
-.ba-toggle button.on{background:var(--red);color:#fff;box-shadow:0 8px 26px rgba(225,27,34,.45)}
+.cmp-tag > *{transform:skewX(8deg)}
+.cmp-tag b{font-family:var(--font-d);font-weight:400;letter-spacing:.08em;font-size:1rem;text-transform:uppercase;line-height:1}
+.cmp-tag small{font-size:9px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.cmp-tag-l{left:16px}
+.cmp-tag-r{right:16px}
+.cmp-tag-r b{color:var(--red-hot)}
+.cmp:focus-visible{outline:2px solid var(--red);outline-offset:4px}
 .ba-note{margin-top:18px;text-align:center;color:var(--muted);font-size:13px;letter-spacing:.14em;text-transform:uppercase}
-/* vista dividida para la captura estática */
-html.static .ba-frame img.off{opacity:1;transform:none;clip-path:inset(0 0 0 50%)}
-html.static .ba-frame::before{
-  content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;z-index:2;
-  background:#fff;box-shadow:0 0 24px rgba(0,0,0,.8);
-}
-html.static .ba-split-tag{
-  position:absolute;right:26px;bottom:22px;z-index:3;
-  font-family:var(--font-d);font-size:clamp(1.6rem,3.4vw,2.8rem);text-transform:uppercase;letter-spacing:.04em;
-  text-shadow:0 4px 30px rgba(0,0,0,.7);text-align:right;
-}
-html.static .ba-split-tag small{display:block;font-family:var(--font-b);font-size:11px;font-weight:800;letter-spacing:.3em;color:var(--silver);margin-bottom:4px}
 
 /* ============================================================
    CTA FINAL
@@ -585,9 +573,16 @@ html.static .hero{min-height:920px}
   .stats{grid-template-columns:1fr 1fr}
   .stat{padding:24px 20px}
   .foot-grid{grid-template-columns:1fr;gap:36px}
-  .ba-frame{aspect-ratio:4/4.6}
-  .ba-toggle{right:12px;top:12px}
-  .ba-toggle button{padding:11px 16px;font-size:10.5px}
+  .cmp{aspect-ratio:4/4.8}
+  .cmp img{object-position:center 58%}
+  .cmp-handle{width:48px;height:48px}
+  .cmp-handle svg{width:22px;height:22px}
+  .cmp-tag{padding:7px 11px;top:12px}
+  .cmp-tag-l{left:12px}
+  .cmp-tag-r{right:12px}
+  .cmp-tag b{font-size:.85rem}
+  .brand img{height:42px}
+  .foot-brand .brand img{height:54px}
   .hero-ig{display:none}
 
   /* nav compacto: el CTA vive en el menú, el hero y el cierre */
@@ -630,11 +625,7 @@ html.static .hero{min-height:920px}
 <nav class="nav" id="nav">
   <div class="nav-in">
     <a class="brand" href="#top" aria-label="The King Shine — inicio">
-      <svg class="crown" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 8l4 3.5L12 4l5 7.5L21 8l-1.6 9.5H4.6L3 8zm1.9 11h14.2v2H4.9v-2z"/></svg>
-      <span class="brand-tx">
-        <b>THE<em>KING</em>SHINE</b>
-        <span>Lavadero &amp; Estética Vehicular</span>
-      </span>
+      <img src="assets/img/logo.png" alt="The King Shine — Lavadero &amp; Estética Vehicular">
     </a>
     <ul>
       <li><a href="#servicios">Servicios</a></li>
@@ -968,20 +959,25 @@ html.static .hero{min-height:920px}
 <section class="section" id="antes-despues">
   <div class="wrap">
     <span class="eyebrow rv">La prueba</span>
-    <h2 class="d h2 rv rv-d1">¿Antes o después? <br><span class="red">Adiviná.</span></h2>
-    <p class="lead rv rv-d2">Misma GLC, mismo día, cero Photoshop. Tocá el interruptor y decidí
-    de qué lado querés que esté tu auto.</p>
+    <h2 class="d h2 rv rv-d1">Llegó así. <br><span class="red">Se fue así.</span></h2>
+    <p class="lead rv rv-d2">Misma Taos, mismo box, mismo día. Agarrá la línea, arrastrala
+    y mirá lo que pasa en el medio.</p>
 
-    <div class="ba-frame rv rv-d2" id="baFrame">
-      <img src="assets/img/glc-espuma.jpeg" alt="Mercedes GLC cubierta de espuma activa durante el proceso de lavado" data-state="antes">
-      <img src="assets/img/glc-taller.jpeg" alt="La misma Mercedes GLC terminada, con brillo espejo en el taller" data-state="despues" class="off">
-      <div class="ba-state" id="baState"><small>Estado</small>En proceso</div>
-      <div class="ba-toggle" role="tablist" aria-label="Alternar antes y después">
-        <button class="on" data-ba="antes" role="tab" aria-selected="true"><span>En proceso</span></button>
-        <button data-ba="despues" role="tab" aria-selected="false"><span>Coronado</span></button>
+    <div class="cmp rv rv-d2" id="cmp" role="slider" tabindex="0"
+         aria-label="Comparador antes y después: arrastrá la línea para revelar"
+         aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+      <img src="assets/img/taos-carwash.jpeg" alt="Volkswagen Taos negra impecable después del lavado y detallado" loading="lazy">
+      <div class="cmp-before-wrap" aria-hidden="true">
+        <img src="assets/img/taos-bay.jpeg" alt="" loading="lazy">
       </div>
+      <div class="cmp-line" aria-hidden="true"></div>
+      <div class="cmp-handle" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg>
+      </div>
+      <span class="cmp-tag cmp-tag-l" aria-hidden="true"><b>Antes</b><small>Lo que llegó</small></span>
+      <span class="cmp-tag cmp-tag-r" aria-hidden="true"><b>Después</b><small>Lo que entregamos</small></span>
     </div>
-    <p class="ba-note rv">El “antes” de verdad no lo mostramos… por respeto a tu auto.</p>
+    <p class="ba-note rv">Cero edición: mismo auto, mismo día, misma patente. Lo del medio es laburo.</p>
   </div>
 </section>
 
@@ -1022,11 +1018,7 @@ html.static .hero{min-height:920px}
     <div class="foot-grid">
       <div class="foot-brand">
         <a class="brand" href="#top" aria-label="The King Shine — inicio">
-          <svg class="crown" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 8l4 3.5L12 4l5 7.5L21 8l-1.6 9.5H4.6L3 8zm1.9 11h14.2v2H4.9v-2z"/></svg>
-          <span class="brand-tx">
-            <b>THE<em>KING</em>SHINE</b>
-            <span>Lavadero &amp; Estética Vehicular</span>
-          </span>
+          <img src="assets/img/logo.png" alt="The King Shine — Lavadero &amp; Estética Vehicular" loading="lazy">
         </a>
         <p>Lavadero y estética vehicular en 25 de Mayo, Buenos Aires.
         Tratamos cada auto como si fuera nuestro… y a los nuestros los tratamos como reyes.</p>
@@ -1081,14 +1073,6 @@ if (STATIC) {
   });
 }
 
-// En captura estática, el antes/después se muestra partido al medio con ambos estados
-if (STATIC) {
-  const tag = document.createElement('div');
-  tag.className = 'ba-split-tag';
-  tag.innerHTML = '<small>Estado</small>Coronado';
-  document.getElementById('baFrame').appendChild(tag);
-}
-
 // Salto instantáneo a la sección pedida en modo captura
 if (SHOT_M && SHOT_M[2] && SHOT_M[2] !== 'full') {
   const target = document.getElementById(SHOT_M[2]);
@@ -1138,17 +1122,25 @@ strip.addEventListener('pointerdown', e => { if (e.pointerType !== 'mouse') retu
 addEventListener('pointermove', e => { if (drag) strip.scrollLeft = drag.s - (e.clientX - drag.x); });
 addEventListener('pointerup', () => { drag = null; strip.style.cursor='grab'; });
 
-// Antes / Después
-const baImgs = document.querySelectorAll('#baFrame img');
-const baState = document.getElementById('baState');
-document.querySelectorAll('.ba-toggle button').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.ba-toggle button').forEach(b => { b.classList.remove('on'); b.setAttribute('aria-selected','false'); });
-    btn.classList.add('on'); btn.setAttribute('aria-selected','true');
-    const st = btn.dataset.ba;
-    baImgs.forEach(im => im.classList.toggle('off', im.dataset.state !== st));
-    baState.innerHTML = '<small>Estado</small>' + (st === 'antes' ? 'En proceso' : 'Coronado');
-  });
+// Antes / Después: comparador deslizable
+const cmp = document.getElementById('cmp');
+function cmpSet(pct) {
+  pct = Math.max(3, Math.min(97, pct));
+  cmp.style.setProperty('--split', pct + '%');
+  cmp.setAttribute('aria-valuenow', Math.round(pct));
+}
+function cmpPct(e) {
+  const r = cmp.getBoundingClientRect();
+  return (e.clientX - r.left) / r.width * 100;
+}
+let cmpDrag = false;
+cmp.addEventListener('pointerdown', e => { cmpDrag = true; cmp.setPointerCapture(e.pointerId); cmpSet(cmpPct(e)); });
+cmp.addEventListener('pointermove', e => { if (cmpDrag) cmpSet(cmpPct(e)); });
+addEventListener('pointerup', () => { cmpDrag = false; });
+cmp.addEventListener('keydown', e => {
+  const cur = parseFloat(cmp.style.getPropertyValue('--split')) || 50;
+  if (e.key === 'ArrowLeft')  { cmpSet(cur - 4); e.preventDefault(); }
+  if (e.key === 'ArrowRight') { cmpSet(cur + 4); e.preventDefault(); }
 });
 </script>
 </body>
