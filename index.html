@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The King Shine — Lavadero & Estética Vehicular · 25 de Mayo</title>
 <meta name="description" content="Lavadero y estética vehicular en 25 de Mayo, Buenos Aires. Tratamientos acrílicos y cerámicos, abrillantado, limpieza interior, recuperación de ópticas, pre venta y lavados premium.">
+<meta name="theme-color" content="#07080a">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
@@ -120,6 +121,62 @@ body::after{
 .nav ul a::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:2px;background:var(--red);transition:width .25s}
 .nav ul a:hover::after{width:100%}
 .nav .btn{padding:12px 22px;font-size:12px}
+.nav-right{display:flex;align-items:center;gap:14px;flex:none}
+
+/* ---- hamburguesa (solo mobile/tablet) ---- */
+.nav-burger{
+  display:none;width:46px;height:46px;flex:none;
+  border:1px solid var(--line-2);transform:skewX(-8deg);
+  position:relative;z-index:102;transition:border-color .25s,background .25s;
+}
+.nav-burger span{
+  position:absolute;left:12px;right:12px;height:2px;background:var(--txt);
+  transition:transform .3s cubic-bezier(.2,.7,.2,1), top .3s, opacity .2s;
+}
+.nav-burger span:nth-child(1){top:17px}
+.nav-burger span:nth-child(2){top:26px}
+.nav-burger[aria-expanded="true"]{background:var(--red);border-color:var(--red)}
+.nav-burger[aria-expanded="true"] span:nth-child(1){top:21px;transform:rotate(45deg)}
+.nav-burger[aria-expanded="true"] span:nth-child(2){top:21px;transform:rotate(-45deg)}
+
+/* ---- menú overlay mobile ---- */
+.mmenu{
+  position:fixed;inset:0;z-index:101;
+  background:rgba(7,8,10,.99);backdrop-filter:blur(12px);
+  display:flex;flex-direction:column;justify-content:center;gap:6px;
+  padding:100px var(--pad) 42px;
+  visibility:hidden;opacity:0;transition:opacity .35s ease, visibility .35s;
+}
+.mmenu.open{visibility:visible;opacity:1}
+.mmenu::after{
+  content:"";position:absolute;inset:auto -20% -35% -20%;height:55%;pointer-events:none;
+  background:radial-gradient(50% 90% at 50% 100%, rgba(225,27,34,.3), transparent 70%);
+}
+.mmenu a.mlink{
+  display:flex;align-items:baseline;gap:16px;
+  font-family:var(--font-d);font-size:clamp(1.9rem,8vw,2.6rem);text-transform:uppercase;color:var(--txt);
+  padding:12px 0;border-bottom:1px solid var(--line);
+  opacity:0;transform:translateY(16px);transition:opacity .4s ease, transform .4s ease, color .2s;
+}
+.mmenu.open a.mlink{opacity:1;transform:none}
+.mmenu.open a.mlink:nth-child(2){transition-delay:.05s}
+.mmenu.open a.mlink:nth-child(3){transition-delay:.1s}
+.mmenu.open a.mlink:nth-child(4){transition-delay:.15s}
+.mmenu.open a.mlink:nth-child(5){transition-delay:.2s}
+.mmenu a.mlink i{
+  font-style:normal;font-family:var(--font-b);font-size:11px;font-weight:800;
+  letter-spacing:.2em;color:var(--red-hot);
+}
+.mmenu a.mlink:active{color:var(--red-hot)}
+.mmenu .mmenu-cta{margin-top:30px;display:flex;flex-direction:column;gap:12px;position:relative;z-index:1}
+.mmenu .mmenu-cta .btn{width:100%;justify-content:center}
+.mmenu .mmenu-foot{
+  margin-top:26px;display:flex;justify-content:center;gap:26px;
+  color:var(--muted);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+}
+.mmenu .mmenu-foot a{display:inline-flex;align-items:center;gap:8px}
+.mmenu .mmenu-foot svg{width:15px;height:15px;color:var(--red-hot)}
+html.menu-open{overflow:hidden}
 
 /* ---- lockup de marca (texto, eco del logo real) ---- */
 .brand{display:flex;align-items:center;gap:12px}
@@ -505,22 +562,63 @@ html.static .hero{min-height:920px}
    ============================================================ */
 @media (max-width:1020px){
   .serv-grid{grid-template-columns:repeat(2,1fr)}
-  .reels{grid-template-columns:repeat(2,1fr)}
   .reel:nth-child(2),.reel:nth-child(4){transform:none}
   .stats{grid-template-columns:repeat(2,1fr)}
   .quotes{grid-template-columns:1fr}
   .foot-grid{grid-template-columns:1fr 1fr}
   .nav ul{display:none}
+  .nav-burger{display:block}
+
+  /* reels → tira swipeable estilo stories */
+  .reels{
+    display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;
+    margin-inline:calc(var(--pad) * -1);padding-inline:var(--pad);padding-bottom:14px;
+    scrollbar-width:none;
+  }
+  .reels::-webkit-scrollbar{display:none}
+  .reel{flex:none;width:min(72vw, 300px);scroll-snap-align:center}
 }
 @media (max-width:640px){
-  .serv-grid{grid-template-columns:1fr}
-  .reels{grid-template-columns:1fr}
-  .reel{aspect-ratio:9/13}
+  .section{padding-block:72px}
+  .serv-grid{grid-template-columns:1fr;gap:16px}
+  .serv-card{min-height:0}
   .stats{grid-template-columns:1fr 1fr}
-  .foot-grid{grid-template-columns:1fr}
+  .stat{padding:24px 20px}
+  .foot-grid{grid-template-columns:1fr;gap:36px}
   .ba-frame{aspect-ratio:4/4.6}
   .ba-toggle{right:12px;top:12px}
+  .ba-toggle button{padding:11px 16px;font-size:10.5px}
   .hero-ig{display:none}
+
+  /* nav compacto: el CTA vive en el menú, el hero y el cierre */
+  .nav .nav-right .btn{display:none}
+  .nav{padding-block:14px}
+  .nav.solid{padding-block:10px}
+
+  /* hero */
+  .hero h1{font-size:clamp(2.7rem, 13.2vw, 4.2rem)}
+  .hero-chip{font-size:10px;letter-spacing:.18em;padding:8px 14px}
+  .hero p{font-size:1rem}
+  .hero-cta{gap:12px;margin-top:30px}
+  .hero-cta .btn{width:100%;justify-content:center}
+  .hero-trust{flex-direction:column;align-items:flex-start;gap:12px;margin-top:38px}
+
+  /* títulos: sin cortes forzados en pantallas chicas */
+  .h2 br, .band h3 br, #contacto h2 br{display:none}
+  .h2{font-size:clamp(2.2rem, 9.4vw, 3rem)}
+  .band h3{font-size:clamp(1.9rem, 8vw, 2.6rem)}
+  #contacto h2{font-size:clamp(2.4rem, 10.5vw, 3.4rem)}
+
+  /* galería más contenida */
+  .gal-item{height:min(50vh, 420px)}
+  .gal-btn{width:48px;height:48px}
+
+  /* CTA final */
+  .cta-row .btn{width:100%;justify-content:center}
+  .cta-meta{flex-direction:column;gap:14px;align-items:center}
+
+  .quote{padding:24px 20px}
+  .foot-base{flex-direction:column;align-items:center;text-align:center;gap:8px}
 }
 </style>
 </head>
@@ -545,11 +643,41 @@ html.static .hero{min-height:920px}
       <li><a href="#antes-despues">Antes / Después</a></li>
       <li><a href="#contacto">Contacto</a></li>
     </ul>
-    <a class="btn" href="https://shineapp-web.vercel.app/publica/the-king-shine" target="_blank" rel="noopener">
-      <span>Reservar turno</span>
-    </a>
+    <div class="nav-right">
+      <a class="btn" href="https://shineapp-web.vercel.app/publica/the-king-shine" target="_blank" rel="noopener">
+        <span>Reservar turno</span>
+      </a>
+      <button class="nav-burger" id="navBurger" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span>
+      </button>
+    </div>
   </div>
 </nav>
+
+<!-- menú mobile -->
+<div class="mmenu" id="mobileMenu" aria-hidden="true">
+  <a class="mlink" href="#servicios"><i>01</i>Servicios</a>
+  <a class="mlink" href="#taller"><i>02</i>Taller</a>
+  <a class="mlink" href="#resultados"><i>03</i>Resultados</a>
+  <a class="mlink" href="#antes-despues"><i>04</i>Antes / Después</a>
+  <a class="mlink" href="#contacto"><i>05</i>Contacto</a>
+  <div class="mmenu-cta">
+    <a class="btn" href="https://shineapp-web.vercel.app/publica/the-king-shine" target="_blank" rel="noopener">
+      <span>Reservar turno online</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+  <div class="mmenu-foot">
+    <a href="https://www.instagram.com/thekingshine_/" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.5"/></svg>
+      @thekingshine_
+    </a>
+    <a href="https://wa.me/5492345522167" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg>
+      WhatsApp
+    </a>
+  </div>
+</div>
 
 <!-- ================================================================
      SECCIÓN: HERO
@@ -557,7 +685,7 @@ html.static .hero{min-height:920px}
 <header class="hero" id="top">
   <div class="hero-media" aria-hidden="true">
     <video src="assets/video/vista-superior.mp4" autoplay muted loop playsinline preload="auto"
-           data-poster="assets/img/glc-capot.jpeg"></video>
+           poster="assets/img/glc-capot.jpeg" data-poster="assets/img/glc-capot.jpeg"></video>
   </div>
 
   <div class="wrap hero-in">
@@ -612,7 +740,7 @@ html.static .hero{min-height:920px}
     <div class="serv-head">
       <div>
         <span class="eyebrow rv">Nuestros servicios</span>
-        <h2 class="d h2 rv rv-d1">Todo lo que tu auto<br><span class="outline">no se anima a pedirte.</span></h2>
+        <h2 class="d h2 rv rv-d1">Todo lo que tu auto <br><span class="outline">no se anima a pedirte.</span></h2>
       </div>
       <p class="lead rv rv-d2">Del lavado de siempre al tratamiento cerámico que lo deja protegido por meses.
       Vos elegís hasta dónde querés llegar; nosotros no sabemos hacerlo a medias.</p>
@@ -701,31 +829,31 @@ html.static .hero{min-height:920px}
 <section class="section" id="taller">
   <div class="wrap">
     <span class="eyebrow rv">En vivo desde el taller</span>
-    <h2 class="d h2 rv rv-d1">El brillo no se cuenta.<br><span class="red">Se muestra.</span></h2>
+    <h2 class="d h2 rv rv-d1">El brillo no se cuenta. <br><span class="red">Se muestra.</span></h2>
     <p class="lead rv rv-d2">Proceso real, autos reales, cero stock photos. Esto es lo que pasa adentro
     cuando tu auto queda en buenas manos.</p>
 
     <div class="reels">
       <figure class="reel rv">
-        <video src="assets/video/lavado.mp4" muted loop playsinline preload="metadata" data-poster="assets/img/glc-espuma.jpeg"></video>
+        <video src="assets/video/lavado.mp4" muted loop playsinline preload="none" poster="assets/img/glc-espuma.jpeg" data-poster="assets/img/glc-espuma.jpeg"></video>
         <figcaption class="reel-tag"><i></i>Proceso</figcaption>
         <div class="reel-label"><b>Lavado</b><small>Espuma activa + descontaminado</small></div>
         <span class="reel-num">01</span>
       </figure>
       <figure class="reel rv rv-d1">
-        <video src="assets/video/pulido.mp4" muted loop playsinline preload="metadata" data-poster="assets/img/amarok-frente.jpeg"></video>
+        <video src="assets/video/pulido.mp4" muted loop playsinline preload="none" poster="assets/img/amarok-frente.jpeg" data-poster="assets/img/amarok-frente.jpeg"></video>
         <figcaption class="reel-tag"><i></i>Proceso</figcaption>
         <div class="reel-label"><b>Pulido</b><small>Corrección de pintura</small></div>
         <span class="reel-num">02</span>
       </figure>
       <figure class="reel rv rv-d2">
-        <video src="assets/video/pulido-detalle.mp4" muted loop playsinline preload="metadata" data-poster="assets/img/llanta-espuma.jpeg"></video>
+        <video src="assets/video/pulido-detalle.mp4" muted loop playsinline preload="none" poster="assets/img/llanta-espuma.jpeg" data-poster="assets/img/llanta-espuma.jpeg"></video>
         <figcaption class="reel-tag"><i></i>Proceso</figcaption>
         <div class="reel-label"><b>Detalle</b><small>Milímetro por milímetro</small></div>
         <span class="reel-num">03</span>
       </figure>
       <figure class="reel rv rv-d3">
-        <video src="assets/video/mercedes.mp4" muted loop playsinline preload="metadata" data-poster="assets/img/glc-taller.jpeg"></video>
+        <video src="assets/video/mercedes.mp4" muted loop playsinline preload="none" poster="assets/img/glc-taller.jpeg" data-poster="assets/img/glc-taller.jpeg"></video>
         <figcaption class="reel-tag"><i></i>Entrega</figcaption>
         <div class="reel-label"><b>Resultado</b><small>Listo para el trono</small></div>
         <span class="reel-num">04</span>
@@ -742,7 +870,7 @@ html.static .hero{min-height:920px}
     <div class="gal-head">
       <div>
         <span class="eyebrow rv">Resultados recientes</span>
-        <h2 class="d h2 rv rv-d1">Salieron así del taller.<br><span class="outline">Sin filtros.</span></h2>
+        <h2 class="d h2 rv rv-d1">Salieron así del taller. <br><span class="outline">Sin filtros.</span></h2>
       </div>
       <div class="gal-nav rv rv-d2">
         <button class="gal-btn" data-dir="-1" aria-label="Anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
@@ -772,9 +900,9 @@ html.static .hero{min-height:920px}
      SECCIÓN: BANDA cinemagraph
      ================================================================ -->
 <div class="band" id="banda" role="img" aria-label="Reflejos perfectos sobre la chapa de una camioneta recién detallada">
-  <video src="assets/video/reflejo.mp4" muted loop playsinline preload="metadata" data-poster="assets/img/amarok-shine.jpeg"></video>
+  <video src="assets/video/reflejo.mp4" muted loop playsinline preload="none" poster="assets/img/amarok-shine.jpeg" data-poster="assets/img/amarok-shine.jpeg"></video>
   <div class="wrap">
-    <h3 class="d rv">Si no te reflejás,<br><span class="red">todavía no terminamos.</span></h3>
+    <h3 class="d rv">Si no te reflejás, <br><span class="red">todavía no terminamos.</span></h3>
     <p class="rv rv-d1">Control obsesivo de cada panel antes de entregar. Sí, somos así.</p>
   </div>
 </div>
@@ -786,7 +914,7 @@ html.static .hero{min-height:920px}
   <svg class="crown-bg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 8l4 3.5L12 4l5 7.5L21 8l-1.6 9.5H4.6L3 8zm1.9 11h14.2v2H4.9v-2z"/></svg>
   <div class="wrap">
     <span class="eyebrow rv">La corte opina</span>
-    <h2 class="d h2 rv rv-d1">Los autos no hablan.<br><span class="outline">Sus dueños, sí.</span></h2>
+    <h2 class="d h2 rv rv-d1">Los autos no hablan. <br><span class="outline">Sus dueños, sí.</span></h2>
 
     <div class="stats">
       <div class="stat rv"><b>+500</b><span>Autos coronados</span></div>
@@ -840,7 +968,7 @@ html.static .hero{min-height:920px}
 <section class="section" id="antes-despues">
   <div class="wrap">
     <span class="eyebrow rv">La prueba</span>
-    <h2 class="d h2 rv rv-d1">¿Antes o después?<br><span class="red">Adiviná.</span></h2>
+    <h2 class="d h2 rv rv-d1">¿Antes o después? <br><span class="red">Adiviná.</span></h2>
     <p class="lead rv rv-d2">Misma GLC, mismo día, cero Photoshop. Tocá el interruptor y decidí
     de qué lado querés que esté tu auto.</p>
 
@@ -866,7 +994,7 @@ html.static .hero{min-height:920px}
   </div>
   <div class="wrap">
     <span class="eyebrow rv">Reservá tu lugar</span>
-    <h2 class="d rv rv-d1">Tu auto ya sabe<br>lo que <span class="red">se merece.</span></h2>
+    <h2 class="d rv rv-d1">Tu auto ya sabe <br>lo que <span class="red">se merece.</span></h2>
     <p class="lead rv rv-d2">Vos solo sacá el turno. Del resto —espuma, pulido, brillo y corona— nos encargamos nosotros.</p>
     <div class="cta-row rv rv-d3">
       <a class="btn" href="https://shineapp-web.vercel.app/publica/the-king-shine" target="_blank" rel="noopener">
@@ -971,6 +1099,20 @@ if (SHOT_M && SHOT_M[2] && SHOT_M[2] !== 'full') {
 const nav = document.getElementById('nav');
 addEventListener('scroll', () => nav.classList.toggle('solid', scrollY > 40), {passive:true});
 
+// Menú mobile
+const burger = document.getElementById('navBurger');
+const mmenu = document.getElementById('mobileMenu');
+function setMenu(open) {
+  burger.setAttribute('aria-expanded', open);
+  burger.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+  mmenu.classList.toggle('open', open);
+  mmenu.setAttribute('aria-hidden', !open);
+  document.documentElement.classList.toggle('menu-open', open);
+}
+burger.addEventListener('click', () => setMenu(burger.getAttribute('aria-expanded') !== 'true'));
+mmenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+
 // Reveal on scroll
 const io = new IntersectionObserver(es => es.forEach(e => {
   if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
@@ -992,7 +1134,7 @@ document.querySelectorAll('.gal-btn').forEach(b => {
   b.addEventListener('click', () => strip.scrollBy({left: b.dataset.dir * (strip.clientWidth * .7), behavior:'smooth'}));
 });
 let drag = null;
-strip.addEventListener('pointerdown', e => { drag = {x:e.clientX, s:strip.scrollLeft}; strip.style.cursor='grabbing'; });
+strip.addEventListener('pointerdown', e => { if (e.pointerType !== 'mouse') return; drag = {x:e.clientX, s:strip.scrollLeft}; strip.style.cursor='grabbing'; });
 addEventListener('pointermove', e => { if (drag) strip.scrollLeft = drag.s - (e.clientX - drag.x); });
 addEventListener('pointerup', () => { drag = null; strip.style.cursor='grab'; });
 
