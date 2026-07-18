@@ -1,0 +1,13 @@
+# Material de trabajo (se queda local, no hace falta en el repo)
+/material/
+/referencias/
+maqueta-the-king-shine.png
+
+# Dependencias / build
+node_modules/
+.vercel/
+
+# Sistema / editor
+.DS_Store
+Thumbs.db
+*.log
