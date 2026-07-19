@@ -444,12 +444,15 @@ html.menu-open{overflow:hidden}
 /* comparador deslizable antes/después */
 .cmp{
   --split:50%;
-  position:relative;margin-top:56px;border:1px solid var(--line);overflow:hidden;
-  aspect-ratio:16/8.4;background:#000;cursor:ew-resize;
+  position:relative;margin:56px auto 0;max-width:620px;
+  border:1px solid var(--line);overflow:hidden;
+  aspect-ratio:590/332;background:#000;cursor:ew-resize;
   touch-action:pan-y;user-select:none;-webkit-user-select:none;
 }
+/* las dos fotos ya vienen recortadas y alineadas al mismo encuadre
+   (assets cmp-antes/cmp-despues), a resolución nativa: no se transforman acá */
 .cmp img{
-  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 62%;
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;
   pointer-events:none;
 }
 .cmp-before-wrap{position:absolute;inset:0;clip-path:inset(0 calc(100% - var(--split)) 0 0)}
@@ -573,8 +576,7 @@ html.static .hero{min-height:920px}
   .stats{grid-template-columns:1fr 1fr}
   .stat{padding:24px 20px}
   .foot-grid{grid-template-columns:1fr;gap:36px}
-  .cmp{aspect-ratio:4/4.8}
-  .cmp img{object-position:center 58%}
+  .cmp{max-width:100%}
   .cmp-handle{width:48px;height:48px}
   .cmp-handle svg{width:22px;height:22px}
   .cmp-tag{padding:7px 11px;top:12px}
@@ -966,9 +968,9 @@ html.static .hero{min-height:920px}
     <div class="cmp rv rv-d2" id="cmp" role="slider" tabindex="0"
          aria-label="Comparador antes y después: arrastrá la línea para revelar"
          aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
-      <img src="assets/img/taos-carwash.jpeg" alt="Volkswagen Taos negra impecable después del lavado y detallado" loading="lazy">
+      <img src="assets/img/cmp-despues.jpg" alt="Volkswagen Taos negra impecable después del lavado y detallado" loading="lazy">
       <div class="cmp-before-wrap" aria-hidden="true">
-        <img src="assets/img/taos-bay.jpeg" alt="" loading="lazy">
+        <img src="assets/img/cmp-antes.jpg" alt="" loading="lazy">
       </div>
       <div class="cmp-line" aria-hidden="true"></div>
       <div class="cmp-handle" aria-hidden="true">
