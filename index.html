@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The King Shine — Lavadero & Estética Vehicular · 25 de Mayo</title>
-<meta name="description" content="Lavadero y estética vehicular en 25 de Mayo, Buenos Aires. Tratamientos acrílicos y cerámicos, abrillantado, limpieza interior, recuperación de ópticas, pre venta y lavados premium.">
+<meta name="description" content="Lavadero y estética vehicular en 11 e/25 y 26, 25 de Mayo, Buenos Aires. Tratamientos acrílicos y cerámicos, abrillantado, limpieza interior, recuperación de ópticas, pre venta y lavados premium.">
 <meta name="theme-color" content="#07080a">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,6 +56,15 @@ body::after{
   content:"";position:fixed;inset:0;z-index:120;pointer-events:none;opacity:.5;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
+
+/* ---- partículas de brillo (canvas ambiental) ---- */
+#fx{
+  position:fixed;inset:0;width:100%;height:100%;
+  pointer-events:none;z-index:90;
+  mix-blend-mode:screen;opacity:.9;
+}
+@media (prefers-reduced-motion: reduce){ #fx{display:none} }
+.static #fx{display:none}
 
 /* ---- tipografía display ---- */
 .d{
@@ -373,15 +382,19 @@ html.menu-open{overflow:hidden}
 }
 .gal-hint{margin-top:6px;color:var(--muted);font-size:12px;letter-spacing:.18em;text-transform:uppercase;display:flex;align-items:center;gap:10px}
 .gal-hint::before{content:"";width:26px;height:1px;background:var(--line-2)}
+.gal-hint a{color:var(--red);text-decoration:underline;text-underline-offset:3px;transition:opacity .2s}
+.gal-hint a:hover{opacity:.75}
 
 /* ============================================================
    BANDA cinemagraph
    ============================================================ */
 .band{
-  position:relative;height:clamp(340px, 52vh, 520px);overflow:hidden;isolation:isolate;
+  position:relative;height:clamp(480px, 86vh, 820px);overflow:hidden;isolation:isolate;
   display:grid;place-items:center;text-align:center;
 }
-.band video,.band img.poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;z-index:-2}
+.band .band-bg,.band .band-main,.band img.poster{position:absolute;inset:0;width:100%;height:100%}
+.band .band-bg{object-fit:cover;object-position:center;filter:blur(34px) brightness(.55);transform:scale(1.14);z-index:-3}
+.band .band-main,.band img.poster{object-fit:contain;object-position:center;z-index:-2}
 .band::before{content:"";position:absolute;inset:0;background:rgba(7,8,10,.72);z-index:-1}
 .band::after{content:"";position:absolute;inset:0;background:radial-gradient(60% 120% at 50% 120%, rgba(225,27,34,.25), transparent 65%);z-index:-1}
 .band h3{font-size:clamp(2.2rem,5.4vw,4.2rem);margin-inline:auto}
@@ -444,7 +457,7 @@ html.menu-open{overflow:hidden}
 /* comparador deslizable antes/después */
 .cmp{
   --split:50%;
-  position:relative;margin:56px auto 0;max-width:620px;
+  position:relative;margin:56px auto 0;max-width:720px;
   border:1px solid var(--line);overflow:hidden;
   aspect-ratio:590/332;background:#000;cursor:ew-resize;
   touch-action:pan-y;user-select:none;-webkit-user-select:none;
@@ -621,6 +634,9 @@ html.static .hero{min-height:920px}
 </head>
 <body>
 
+<!-- partículas de brillo rojas ascendentes (ambiente) -->
+<canvas id="fx" aria-hidden="true"></canvas>
+
 <!-- ================================================================
      SECCIÓN: NAV
      ================================================================ -->
@@ -682,10 +698,9 @@ html.static .hero{min-height:920px}
   </div>
 
   <div class="wrap hero-in">
-    <span class="hero-chip rv"><span><i class="dot"></i>25 de Mayo · Buenos Aires — Estética Vehicular</span></span>
-    <h1 class="d rv rv-d1">Traelo sucio.<span class="l2 red">Llevátelo rey.</span></h1>
-    <p class="rv rv-d2">Acá no “lavamos autos”: los coronamos. Tratamiento cerámico, pulido fino y detallado
-    obsesivo para que el tuyo vuelva a dar envidia en la cuadra.</p>
+    <span class="hero-chip rv"><span><i class="dot"></i>25 de Mayo · Buenos Aires — Centro de Estética Vehicular</span></span>
+    <h1 class="d rv rv-d1">Un servicio,<span class="l2 red">mil detalles.</span></h1>
+    <p class="rv rv-d2">No limpiamos coches, devolvemos orgullo, confort y elegancia.</p>
     <div class="hero-cta rv rv-d3">
       <a class="btn" href="https://shineapp-web.vercel.app/publica/the-king-shine" target="_blank" rel="noopener">
         <span>Reservar turno</span>
@@ -694,9 +709,9 @@ html.static .hero{min-height:920px}
       <a class="btn ghost" href="#resultados"><span>Ver resultados</span></a>
     </div>
     <div class="hero-trust rv rv-d4">
-      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg>Turnos online sin vueltas</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg>Turnos online</span>
       <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg>Productos premium</span>
-      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg>Brillo que se ve de lejos</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg>Brillo extremo</span>
     </div>
   </div>
 
@@ -713,14 +728,14 @@ html.static .hero{min-height:920px}
 <div class="marquee-zone" aria-hidden="true">
   <div class="marquee m-red">
     <div class="marquee-track">
-      <span>Tratamiento cerámico</span><span>Abrillantado</span><span>Interiores</span><span>Ópticas</span><span>Pre venta</span><span>Lavados</span>
-      <span>Tratamiento cerámico</span><span>Abrillantado</span><span>Interiores</span><span>Ópticas</span><span>Pre venta</span><span>Lavados</span>
+      <span>Tratamiento cerámico</span><span>Tratamiento acrílico</span><span>Abrillantado</span><span>Interiores</span><span>Ópticas</span><span>Pre venta</span><span>Lavados</span>
+      <span>Tratamiento cerámico</span><span>Tratamiento acrílico</span><span>Abrillantado</span><span>Interiores</span><span>Ópticas</span><span>Pre venta</span><span>Lavados</span>
     </div>
   </div>
   <div class="marquee m-dark">
     <div class="marquee-track">
-      <span>The King Shine</span><span>25 de Mayo</span><span>Estética vehicular</span><span>Desde el taller</span><span>The King Shine</span><span>25 de Mayo</span>
-      <span>The King Shine</span><span>25 de Mayo</span><span>Estética vehicular</span><span>Desde el taller</span><span>The King Shine</span><span>25 de Mayo</span>
+      <span>The King Shine</span><span>25 de Mayo</span><span>Estética vehicular</span><span>The King Shine</span><span>25 de Mayo</span>
+      <span>The King Shine</span><span>25 de Mayo</span><span>Estética vehicular</span><span>The King Shine</span><span>25 de Mayo</span>
     </div>
   </div>
 </div>
@@ -733,7 +748,7 @@ html.static .hero{min-height:920px}
     <div class="serv-head">
       <div>
         <span class="eyebrow rv">Nuestros servicios</span>
-        <h2 class="d h2 rv rv-d1">Todo lo que tu auto <br><span class="outline">no se anima a pedirte.</span></h2>
+        <h2 class="d h2 rv rv-d1">Todo lo que tu auto <br><span class="outline">necesita.</span></h2>
       </div>
       <p class="lead rv rv-d2">Del lavado de siempre al tratamiento cerámico que lo deja protegido por meses.
       Vos elegís hasta dónde querés llegar; nosotros no sabemos hacerlo a medias.</p>
@@ -748,7 +763,7 @@ html.static .hero{min-height:920px}
         </div>
         <div class="serv-body">
           <h3>Tratamiento Acrílico <span class="red">&amp;</span> Cerámico</h3>
-          <p>La corona del detailing: sellado de larga duración, brillo profundo y el agua resbalando como si le debiera plata.</p>
+          <p>Corrección total de la pintura. Protección de larga duración. Brillo intenso y propiedades que van a hacer que tu vehículo se mantenga por mucho más tiempo.</p>
           <span class="serv-link">Consultar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
       </article>
@@ -760,7 +775,7 @@ html.static .hero{min-height:920px}
         </div>
         <div class="serv-body">
           <h3>Abrillantado</h3>
-          <p>Corrección y pulido que le borran años de encima a la pintura. Espejo, literal: peinate mirándote el capot.</p>
+          <p>Corrección notoria en cuanto a rayas e imperfecciones de la pintura, descubriendo así un brillo y un cambio de tonalidad del color único, con durabilidad de entre 8 y 12 meses.</p>
           <span class="serv-link">Consultar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
       </article>
@@ -772,7 +787,7 @@ html.static .hero{min-height:920px}
         </div>
         <div class="serv-body">
           <h3>Limpieza Interior <span class="red">+</span> Tapizado</h3>
-          <p>Butacas, alfombras, techo y cada rincón donde se esconde la historia de tu auto. Por dentro también se nota quién manda.</p>
+          <p>Limpieza profunda del interior del vehículo, en la que retiramos todos sus asientos y comenzamos limpiando desde el tapizado del techo hasta la alfombra del piso (parantes, paneles, torpedo y conductos de ventilación con máquina a vapor). Acondicionamiento completo de plásticos negros, que les brinda una terminación satinada y protección contra los rayos UV.</p>
           <span class="serv-link">Consultar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
       </article>
@@ -784,7 +799,7 @@ html.static .hero{min-height:920px}
         </div>
         <div class="serv-body">
           <h3>Recuperación de Ópticas</h3>
-          <p>Ópticas amarillentas es luz corta, VTV en rojo y cara de abandono. Las devolvemos a estado de fábrica.</p>
+          <p>Tratamiento de recuperación de ópticas: eliminación de la capa amarillenta y rejuvenecimiento de la tonalidad transparente, con durabilidad por 12 meses.</p>
           <span class="serv-link">Consultar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
       </article>
@@ -796,7 +811,7 @@ html.static .hero{min-height:920px}
         </div>
         <div class="serv-body">
           <h3>Pre Venta</h3>
-          <p>¿Lo vendés? Que la primera impresión negocie por vos. Preparación completa para fotos y visitas que no regatean.</p>
+          <p>¿Lo vendés? ¡Que la primera impresión negocie por vos! Puesta a valor y servicio completo de bajo costo: esto hará que, a la hora de realizar la venta, puedas defender tu vehículo como ningún otro.</p>
           <span class="serv-link">Consultar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
       </article>
@@ -808,7 +823,7 @@ html.static .hero{min-height:920px}
         </div>
         <div class="serv-body">
           <h3>Lavados</h3>
-          <p>El clásico, hecho con obsesión: espuma activa, secado sin marcas y cero chorreado. Parece fácil hasta que lo ves bien hecho.</p>
+          <p>Lavados tradicionales y premium. Servicios de mantenimiento con productos de primera calidad que van a lograr terminaciones inigualables en tu vehículo.</p>
           <span class="serv-link">Consultar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
       </article>
@@ -823,7 +838,7 @@ html.static .hero{min-height:920px}
   <div class="wrap">
     <span class="eyebrow rv">En vivo desde el taller</span>
     <h2 class="d h2 rv rv-d1">El brillo no se cuenta. <br><span class="red">Se muestra.</span></h2>
-    <p class="lead rv rv-d2">Proceso real, autos reales, cero stock photos. Esto es lo que pasa adentro
+    <p class="lead rv rv-d2">Proceso real, autos reales, certificación de calidad. Esto es lo que pasa adentro
     cuando tu auto queda en buenas manos.</p>
 
     <div class="reels">
@@ -848,7 +863,7 @@ html.static .hero{min-height:920px}
       <figure class="reel rv rv-d3">
         <video src="assets/video/mercedes.mp4" muted loop playsinline preload="none" poster="assets/img/glc-taller.jpeg" data-poster="assets/img/glc-taller.jpeg"></video>
         <figcaption class="reel-tag"><i></i>Entrega</figcaption>
-        <div class="reel-label"><b>Resultado</b><small>Listo para el trono</small></div>
+        <div class="reel-label"><b>Resultado</b><small>Listo para deslumbrar</small></div>
         <span class="reel-num">04</span>
       </figure>
     </div>
@@ -875,17 +890,17 @@ html.static .hero{min-height:920px}
   <div class="wrap">
     <div class="gal-strip rv" id="galStrip">
       <figure class="gal-item wide"><img src="assets/img/glc-taller.jpeg" alt="Mercedes GLC Coupé gris grafito terminada en el taller" loading="lazy"><figcaption class="gal-cap"><span>Cerámico</span><b>GLC Coupé</b></figcaption></figure>
-      <figure class="gal-item tall"><img src="assets/img/tiguan-frente.jpeg" alt="Volkswagen Tiguan plata con el frente detallado" loading="lazy"><figcaption class="gal-cap"><span>Detallado</span><b>Tiguan</b></figcaption></figure>
-      <figure class="gal-item wide"><img src="assets/img/hrv-frente.jpeg" alt="Honda HR-V azul con brillo espejo en el taller" loading="lazy"><figcaption class="gal-cap"><span>Abrillantado</span><b>HR-V</b></figcaption></figure>
-      <figure class="gal-item tall"><img src="assets/img/mercedes-c.jpeg" alt="Mercedes C 250 AMG plata frente al local" loading="lazy"><figcaption class="gal-cap"><span>Pre venta</span><b>C 250 AMG</b></figcaption></figure>
-      <figure class="gal-item wide"><img src="assets/img/amarok-shine.jpeg" alt="Amarok V6 azul noche con pintura corregida" loading="lazy"><figcaption class="gal-cap"><span>Pulido</span><b>Amarok V6</b></figcaption></figure>
-      <figure class="gal-item tall"><img src="assets/img/audi-a1.jpeg" alt="Audi A1 gris detallado frente al local" loading="lazy"><figcaption class="gal-cap"><span>Lavado premium</span><b>A1</b></figcaption></figure>
-      <figure class="gal-item wide"><img src="assets/img/hrv-lateral.jpeg" alt="Honda HR-V azul, lateral con reflejos definidos" loading="lazy"><figcaption class="gal-cap"><span>Cerámico</span><b>HR-V</b></figcaption></figure>
-      <figure class="gal-item tall"><img src="assets/img/jetta-local.jpeg" alt="Volkswagen Vento blanco en la puerta del taller" loading="lazy"><figcaption class="gal-cap"><span>Detallado</span><b>Vento</b></figcaption></figure>
-      <figure class="gal-item tall"><img src="assets/img/audi-a4.jpeg" alt="Audi A4 gris con terminación impecable" loading="lazy"><figcaption class="gal-cap"><span>Abrillantado</span><b>A4</b></figcaption></figure>
-      <figure class="gal-item wide"><img src="assets/img/amarok-taller.jpeg" alt="Amarok V6 completa dentro del taller iluminado" loading="lazy"><figcaption class="gal-cap"><span>Detallado</span><b>Amarok V6</b></figcaption></figure>
+      <figure class="gal-item tall"><img src="assets/img/tiguan-frente.jpeg" alt="Volkswagen Tiguan plata con el frente detallado" loading="lazy"><figcaption class="gal-cap"><span>Lavado detallado premium</span><b>Tiguan</b></figcaption></figure>
+      <figure class="gal-item wide"><img src="assets/img/hrv-frente.jpeg" alt="Honda HR-V azul con brillo espejo en el taller" loading="lazy"><figcaption class="gal-cap"><span>Tratamiento cerámico</span><b>HR-V</b></figcaption></figure>
+      <figure class="gal-item tall"><img src="assets/img/mercedes-c.jpeg" alt="Mercedes C 250 AMG plata frente al local" loading="lazy"><figcaption class="gal-cap"><span>Lavado detallado premium</span><b>C 250 AMG</b></figcaption></figure>
+      <figure class="gal-item wide"><img src="assets/img/amarok-shine.jpeg" alt="Amarok V6 azul noche con pintura corregida" loading="lazy"><figcaption class="gal-cap"><span>Abrillantado</span><b>Amarok V6</b></figcaption></figure>
+      <figure class="gal-item tall"><img src="assets/img/audi-a1.jpeg" alt="Audi A1 gris detallado frente al local" loading="lazy"><figcaption class="gal-cap"><span>Lavado tradicional</span><b>A1</b></figcaption></figure>
+      <figure class="gal-item wide"><img src="assets/img/hrv-lateral.jpeg" alt="Honda HR-V azul, lateral con reflejos definidos" loading="lazy"><figcaption class="gal-cap"><span>Tratamiento cerámico</span><b>HR-V</b></figcaption></figure>
+      <figure class="gal-item tall"><img src="assets/img/jetta-local.jpeg" alt="Volkswagen Vento blanco en la puerta del taller" loading="lazy"><figcaption class="gal-cap"><span>Lavado tradicional</span><b>Vento</b></figcaption></figure>
+      <figure class="gal-item tall"><img src="assets/img/audi-a4.jpeg" alt="Audi A4 gris con terminación impecable" loading="lazy"><figcaption class="gal-cap"><span>Lavado tradicional</span><b>A4</b></figcaption></figure>
+      <figure class="gal-item wide"><img src="assets/img/amarok-taller.jpeg" alt="Amarok V6 completa dentro del taller iluminado" loading="lazy"><figcaption class="gal-cap"><span>Abrillantado</span><b>Amarok V6</b></figcaption></figure>
     </div>
-    <p class="gal-hint rv">Arrastrá para ver más — esto es una muestra, el resto está en Instagram</p>
+    <p class="gal-hint rv">Arrastrá para ver más — esto es una muestra, el resto está en <a href="https://www.instagram.com/thekingshine_/" target="_blank" rel="noopener">Instagram</a></p>
   </div>
 </section>
 
@@ -893,7 +908,8 @@ html.static .hero{min-height:920px}
      SECCIÓN: BANDA cinemagraph
      ================================================================ -->
 <div class="band" id="banda" role="img" aria-label="Reflejos perfectos sobre la chapa de una camioneta recién detallada">
-  <video src="assets/video/reflejo.mp4" muted loop playsinline preload="none" poster="assets/img/amarok-shine.jpeg" data-poster="assets/img/amarok-shine.jpeg"></video>
+  <video class="band-bg" src="assets/video/reflejo.mp4" muted loop playsinline preload="none" poster="assets/img/amarok-shine.jpeg" data-poster="assets/img/amarok-shine.jpeg" aria-hidden="true"></video>
+  <video class="band-main" src="assets/video/reflejo.mp4" muted loop playsinline preload="none" poster="assets/img/amarok-shine.jpeg" data-poster="assets/img/amarok-shine.jpeg"></video>
   <div class="wrap">
     <h3 class="d rv">Si no te reflejás, <br><span class="red">todavía no terminamos.</span></h3>
     <p class="rv rv-d1">Control obsesivo de cada panel antes de entregar. Sí, somos así.</p>
@@ -906,7 +922,7 @@ html.static .hero{min-height:920px}
 <section class="section" id="prueba">
   <svg class="crown-bg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 8l4 3.5L12 4l5 7.5L21 8l-1.6 9.5H4.6L3 8zm1.9 11h14.2v2H4.9v-2z"/></svg>
   <div class="wrap">
-    <span class="eyebrow rv">La corte opina</span>
+    <span class="eyebrow rv">La gente opina</span>
     <h2 class="d h2 rv rv-d1">Los autos no hablan. <br><span class="outline">Sus dueños, sí.</span></h2>
 
     <div class="stats">
@@ -962,8 +978,7 @@ html.static .hero{min-height:920px}
   <div class="wrap">
     <span class="eyebrow rv">La prueba</span>
     <h2 class="d h2 rv rv-d1">Llegó así. <br><span class="red">Se fue así.</span></h2>
-    <p class="lead rv rv-d2">Misma Taos, mismo box, mismo día. Agarrá la línea, arrastrala
-    y mirá lo que pasa en el medio.</p>
+    <p class="lead rv rv-d2">Mismo auto, mismo día.</p>
 
     <div class="cmp rv rv-d2" id="cmp" role="slider" tabindex="0"
          aria-label="Comparador antes y después: arrastrá la línea para revelar"
@@ -979,7 +994,7 @@ html.static .hero{min-height:920px}
       <span class="cmp-tag cmp-tag-l" aria-hidden="true"><b>Antes</b><small>Lo que llegó</small></span>
       <span class="cmp-tag cmp-tag-r" aria-hidden="true"><b>Después</b><small>Lo que entregamos</small></span>
     </div>
-    <p class="ba-note rv">Cero edición: mismo auto, mismo día, misma patente. Lo del medio es laburo.</p>
+    <p class="ba-note rv">Cero edición: Lo del medio es laburo.</p>
   </div>
 </section>
 
@@ -993,7 +1008,7 @@ html.static .hero{min-height:920px}
   <div class="wrap">
     <span class="eyebrow rv">Reservá tu lugar</span>
     <h2 class="d rv rv-d1">Tu auto ya sabe <br>lo que <span class="red">se merece.</span></h2>
-    <p class="lead rv rv-d2">Vos solo sacá el turno. Del resto —espuma, pulido, brillo y corona— nos encargamos nosotros.</p>
+    <p class="lead rv rv-d2">Vos solo sacá el turno. Del resto —magia— nos encargamos nosotros.</p>
     <div class="cta-row rv rv-d3">
       <a class="btn" href="https://shineapp-web.vercel.app/publica/the-king-shine" target="_blank" rel="noopener">
         <span>Reservar turno online</span>
@@ -1005,8 +1020,8 @@ html.static .hero{min-height:920px}
       </a>
     </div>
     <div class="cta-meta rv rv-d4">
-      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 21s-7-5.4-7-11a7 7 0 0 1 14 0c0 5.6-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>25 de Mayo, Buenos Aires</span>
-      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>Atendemos únicamente con turno</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 21s-7-5.4-7-11a7 7 0 0 1 14 0c0 5.6-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>11 e/25 y 26, 25 de Mayo, Buenos Aires</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>Podés pasar por cualquier consulta</span>
       <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3A19.5 19.5 0 0 1 5.2 13 19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/></svg>+54 9 2345 52-2167</span>
     </div>
   </div>
@@ -1022,7 +1037,7 @@ html.static .hero{min-height:920px}
         <a class="brand" href="#top" aria-label="The King Shine — inicio">
           <img src="assets/img/logo.png" alt="The King Shine — Lavadero &amp; Estética Vehicular" loading="lazy">
         </a>
-        <p>Lavadero y estética vehicular en 25 de Mayo, Buenos Aires.
+        <p>Lavadero y estética vehicular en 11 e/25 y 26, 25 de Mayo, Buenos Aires.
         Tratamos cada auto como si fuera nuestro… y a los nuestros los tratamos como reyes.</p>
       </div>
       <div>
@@ -1042,12 +1057,12 @@ html.static .hero{min-height:920px}
           <li><a href="https://wa.me/5492345522167" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg>+54 9 2345 52-2167</a></li>
           <li><a href="https://www.instagram.com/thekingshine_/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.5"/></svg>@thekingshine_</a></li>
           <li><a href="https://shineapp-web.vercel.app/publica/the-king-shine" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 9h18"/></svg>Turnos online</a></li>
-          <li><a href="#top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-5.4-7-11a7 7 0 0 1 14 0c0 5.6-7 11-7 11z"/></svg>25 de Mayo, Buenos Aires</a></li>
+          <li><a href="#top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-5.4-7-11a7 7 0 0 1 14 0c0 5.6-7 11-7 11z"/></svg>11 e/25 y 26, 25 de Mayo, Buenos Aires</a></li>
         </ul>
       </div>
     </div>
     <div class="foot-base">
-      <span>© 2026 <b>The King Shine</b> — 25 de Mayo, Buenos Aires.</span>
+      <span>© 2026 <b>The King Shine</b> — 11 e/25 y 26, 25 de Mayo, Buenos Aires.</span>
       <span>Acá los autos no se lavan. <b>Se coronan.</b></span>
     </div>
   </div>
@@ -1144,6 +1159,74 @@ cmp.addEventListener('keydown', e => {
   if (e.key === 'ArrowLeft')  { cmpSet(cur - 4); e.preventDefault(); }
   if (e.key === 'ArrowRight') { cmpSet(cur + 4); e.preventDefault(); }
 });
+
+// Partículas de brillo rojas ascendentes (ambiente)
+(function(){
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (STATIC || reduce) return;
+  const cv = document.getElementById('fx');
+  if (!cv) return;
+  const ctx = cv.getContext('2d');
+  let w = 0, h = 0, dpr = 1, parts = [];
+
+  function resize(){
+    dpr = Math.min(devicePixelRatio || 1, 2);
+    w = innerWidth; h = innerHeight;
+    cv.width = w * dpr; cv.height = h * dpr;
+    cv.style.width = w + 'px'; cv.style.height = h + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const target = Math.round(Math.min(90, Math.max(28, w * h / 26000)));
+    parts = Array.from({length: target}, () => spawn(true));
+  }
+  function rnd(a, b){ return a + Math.random() * (b - a); }
+  function spawn(anywhere){
+    return {
+      x: rnd(0, w),
+      y: anywhere ? rnd(0, h) : h + rnd(0, 40),
+      r: rnd(.7, 2.6),
+      sp: rnd(10, 34),          // px/s hacia arriba
+      sway: rnd(8, 26),         // amplitud lateral
+      swaySp: rnd(.4, 1.2),
+      ph: rnd(0, Math.PI * 2),
+      base: rnd(.25, .8),       // opacidad base
+      hot: Math.random() < .35  // algunas más brillantes
+    };
+  }
+  function draw(dt, t){
+    ctx.clearRect(0, 0, w, h);
+    ctx.globalCompositeOperation = 'lighter';
+    for (const p of parts){
+      p.y -= p.sp * dt;
+      const x = p.x + Math.sin(t * p.swaySp + p.ph) * p.sway;
+      if (p.y < -10){ Object.assign(p, spawn(false)); continue; }
+      const fade = p.y > h * .78 ? (h - p.y) / (h * .22) : (p.y < h * .18 ? p.y / (h * .18) : 1);
+      const a = p.base * Math.max(0, Math.min(1, fade)) * (.7 + .3 * Math.sin(t * 3 + p.ph));
+      const R = p.r * 6;
+      const g = ctx.createRadialGradient(x, p.y, 0, x, p.y, R);
+      const core = p.hot ? '255,70,74' : '225,27,34';
+      g.addColorStop(0, 'rgba(' + core + ',' + a + ')');
+      g.addColorStop(.35, 'rgba(' + core + ',' + (a * .35) + ')');
+      g.addColorStop(1, 'rgba(' + core + ',0)');
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(x, p.y, R, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.globalCompositeOperation = 'source-over';
+  }
+  let last = 0, raf = 0, running = false;
+  function loop(now){
+    if (!running) return;
+    const t = now / 1000;
+    const dt = last ? Math.min(.05, (now - last) / 1000) : 0;
+    last = now;
+    draw(dt, t);
+    raf = requestAnimationFrame(loop);
+  }
+  function start(){ if (running) return; running = true; last = 0; raf = requestAnimationFrame(loop); }
+  function stop(){ running = false; cancelAnimationFrame(raf); }
+  addEventListener('resize', resize, {passive:true});
+  document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
+  resize(); start();
+})();
 </script>
 </body>
 </html>
