@@ -5,12 +5,62 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The King Shine — Lavadero & Estética Vehicular · 25 de Mayo</title>
 <meta name="description" content="Lavadero y estética vehicular en 11 e/25 y 26, 25 de Mayo, Buenos Aires. Tratamientos acrílicos y cerámicos, abrillantado, limpieza interior, recuperación de ópticas, pre venta y lavados premium.">
+<link rel="canonical" href="https://the-king-shine-landing.vercel.app/">
+<meta property="og:locale" content="es_AR">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The King Shine">
+<meta property="og:title" content="The King Shine — Lavadero & Estética Vehicular · 25 de Mayo">
+<meta property="og:description" content="Lavadero y estética vehicular en 11 e/25 y 26, 25 de Mayo, Buenos Aires. Tratamientos acrílicos y cerámicos, abrillantado, limpieza interior, recuperación de ópticas, pre venta y lavados premium.">
+<meta property="og:url" content="https://the-king-shine-landing.vercel.app/">
+<meta property="og:image" content="https://the-king-shine-landing.vercel.app/assets/img/the-king-shine-social-v1.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The King Shine, lavadero y estética vehicular en 25 de Mayo, Buenos Aires">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The King Shine — Lavadero & Estética Vehicular · 25 de Mayo">
+<meta name="twitter:description" content="Lavadero y estética vehicular en 11 e/25 y 26, 25 de Mayo, Buenos Aires. Tratamientos acrílicos y cerámicos, abrillantado, limpieza interior, recuperación de ópticas, pre venta y lavados premium.">
+<meta name="twitter:image" content="https://the-king-shine-landing.vercel.app/assets/img/the-king-shine-social-v1.jpg">
+<meta name="twitter:image:alt" content="The King Shine, lavadero y estética vehicular en 25 de Mayo, Buenos Aires">
 <meta name="theme-color" content="#07080a">
 <link rel="icon" type="image/png" sizes="256x256" href="assets/img/favicon.png">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="preload" as="image" href="assets/img/glc-capot-v1-960w.webp" imagesrcset="assets/img/glc-capot-v1-640w.webp 640w, assets/img/glc-capot-v1-960w.webp 960w" imagesizes="100vw" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AutomotiveBusiness",
+  "name": "The King Shine",
+  "url": "https://the-king-shine-landing.vercel.app/",
+  "image": "https://the-king-shine-landing.vercel.app/assets/img/the-king-shine-social-v1.jpg",
+  "telephone": "+5492345522167",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "11 e/25 y 26",
+    "addressLocality": "25 de Mayo",
+    "addressRegion": "Buenos Aires",
+    "addressCountry": "AR"
+  },
+  "sameAs": [
+    "https://www.instagram.com/thekingshine_/"
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Servicios de The King Shine",
+    "itemListElement": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Tratamiento acrílico y cerámico" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Abrillantado" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Limpieza interior y tapizado" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Recuperación de ópticas" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Pre venta" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Lavados" } }
+    ]
+  }
+}
+</script>
 <style>
 /* ============================================================
    THE KING SHINE — Sistema de diseño
@@ -50,6 +100,7 @@ body{
 ::selection{background:var(--red);color:#fff}
 img,video{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
+address{font-style:normal}
 ul{list-style:none}
 button{font-family:inherit;cursor:pointer;background:none;border:none;color:inherit}
 
@@ -202,7 +253,11 @@ html.menu-open{overflow:hidden}
   overflow:hidden;isolation:isolate;
 }
 .hero-media{position:absolute;inset:0;z-index:-3}
-.hero-media video,.hero-media img{width:100%;height:100%;object-fit:cover;object-position:center 40%}
+.hero-media > img,.hero-media video{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%;
+}
+.hero-media video{opacity:0;transition:opacity .45s ease}
+.hero-media video.is-playing{opacity:1}
 .hero::before{ /* velo oscuro + viñeta */
   content:"";position:absolute;inset:0;z-index:-2;
   background:
@@ -220,9 +275,10 @@ html.menu-open{overflow:hidden}
   border:1px solid var(--line-2);
   background:rgba(7,8,10,.5);backdrop-filter:blur(6px);
   padding:9px 18px;font-size:11.5px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--silver);
-  transform:skewX(-8deg);
+  transform:skewX(-8deg);max-width:100%;
 }
-.hero-chip > span{transform:skewX(8deg);display:inline-flex;align-items:center;gap:10px}
+.hero-chip > span{transform:skewX(8deg);display:inline-flex;align-items:center;gap:10px;min-width:0}
+.hero-chip .hero-copy{min-width:0;white-space:normal}
 .hero-chip .dot{width:6px;height:6px;background:var(--red);border-radius:50%;box-shadow:0 0 12px var(--red)}
 .hero h1{
   font-size:clamp(3.6rem, 10.5vw, 9rem);
@@ -328,6 +384,8 @@ html.menu-open{overflow:hidden}
 .reel:nth-child(4){transform:translateY(26px)}
 .reel:hover{border-color:rgba(225,27,34,.6)}
 .reel video,.reel img.poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.reel video{opacity:0;transition:opacity .3s ease}
+.reel video.is-playing{opacity:1}
 .reel::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,8,10,.35),transparent 30%,transparent 62%,rgba(7,8,10,.88));pointer-events:none}
 .reel-tag{
   position:absolute;top:14px;left:14px;z-index:2;
@@ -397,6 +455,8 @@ html.menu-open{overflow:hidden}
 .band .band-bg,.band .band-main,.band img.poster{position:absolute;inset:0;width:100%;height:100%}
 .band .band-bg{object-fit:cover;object-position:center;filter:blur(34px) brightness(.55);transform:scale(1.14);z-index:-3}
 .band .band-main,.band img.poster{object-fit:contain;object-position:center;z-index:-2}
+.band .band-main{opacity:0;transition:opacity .35s ease}
+.band .band-main.is-playing{opacity:1}
 .band::before{content:"";position:absolute;inset:0;background:rgba(7,8,10,.72);z-index:-1}
 .band::after{content:"";position:absolute;inset:0;background:radial-gradient(60% 120% at 50% 120%, rgba(225,27,34,.25), transparent 65%);z-index:-1}
 .band h3{font-size:clamp(2.2rem,5.4vw,4.2rem);margin-inline:auto}
@@ -645,7 +705,7 @@ html.static .hero{min-height:920px}
 <nav class="nav" id="nav">
   <div class="nav-in">
     <a class="brand" href="#top" aria-label="The King Shine — inicio">
-      <img src="assets/img/logo.webp" alt="The King Shine — Lavadero &amp; Estética Vehicular">
+      <img src="assets/img/logo.webp" alt="The King Shine — Lavadero &amp; Estética Vehicular" width="782" height="234" decoding="async">
     </a>
     <ul>
       <li><a href="#servicios">Servicios</a></li>
@@ -690,17 +750,21 @@ html.static .hero{min-height:920px}
   </div>
 </div>
 
+<main>
 <!-- ================================================================
      SECCIÓN: HERO
      ================================================================ -->
 <header class="hero" id="top">
   <div class="hero-media" aria-hidden="true">
-    <video src="assets/video/vista-superior.mp4" autoplay muted loop playsinline preload="auto"
-           poster="assets/img/glc-capot.webp" data-poster="assets/img/glc-capot.webp"></video>
+    <img class="hero-poster" src="assets/img/glc-capot-v1-960w.webp"
+         srcset="assets/img/glc-capot-v1-640w.webp 640w, assets/img/glc-capot-v1-960w.webp 960w"
+         sizes="100vw" width="960" height="1280" alt="" decoding="async" fetchpriority="high">
+    <video class="hero-video" data-src="assets/video/vista-superior.mp4" muted loop playsinline preload="none"
+           data-poster="assets/img/glc-capot-v1-960w.webp"></video>
   </div>
 
   <div class="wrap hero-in">
-    <span class="hero-chip rv"><span><i class="dot"></i>25 de Mayo · Buenos Aires — Centro de Estética Vehicular</span></span>
+    <span class="hero-chip rv"><span><i class="dot"></i><span class="hero-copy">The King Shine · lavadero y estética vehicular · 25 de Mayo, Buenos Aires</span></span></span>
     <h1 class="d rv rv-d1">Un servicio,<span class="l2 red">mil detalles.</span></h1>
     <p class="rv rv-d2">No limpiamos coches, devolvemos orgullo, confort y elegancia.</p>
     <div class="hero-cta rv rv-d3">
@@ -760,7 +824,7 @@ html.static .hero{min-height:920px}
       <!-- 01 -->
       <article class="serv-card rv">
         <div class="serv-media">
-          <img src="assets/img/glc-capot.webp" alt="Capot de una Mercedes GLC con tratamiento cerámico y reflejos perfectos" loading="lazy" decoding="async">
+          <img src="assets/img/glc-capot-v1-960w.webp" srcset="assets/img/glc-capot-v1-640w.webp 640w, assets/img/glc-capot-v1-960w.webp 960w" sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 980px) 50vw, 33vw" width="960" height="1280" alt="Capot de una Mercedes GLC con tratamiento cerámico y reflejos perfectos" loading="lazy" decoding="async">
           <span class="serv-num">01</span>
         </div>
         <div class="serv-body">
@@ -772,7 +836,7 @@ html.static .hero{min-height:920px}
       <!-- 02 -->
       <article class="serv-card rv rv-d1">
         <div class="serv-media">
-          <img src="assets/img/amarok-frente.webp" alt="Frente de una Amarok V6 con el capot pulido y abrillantado" loading="lazy" decoding="async">
+          <img src="assets/img/amarok-frente-v1-1280w.webp" srcset="assets/img/amarok-frente-v1-640w.webp 640w, assets/img/amarok-frente-v1-1280w.webp 1280w" sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 980px) 50vw, 33vw" width="1280" height="720" alt="Frente de una Amarok V6 con el capot pulido y abrillantado" loading="lazy" decoding="async">
           <span class="serv-num">02</span>
         </div>
         <div class="serv-body">
@@ -784,7 +848,7 @@ html.static .hero{min-height:920px}
       <!-- 03 -->
       <article class="serv-card rv rv-d2">
         <div class="serv-media">
-          <img src="assets/img/interior-amarok.webp" alt="Interior de una camioneta con tapizados y plásticos detallados" loading="lazy" decoding="async">
+          <img src="assets/img/interior-amarok-v1-960w.webp" srcset="assets/img/interior-amarok-v1-640w.webp 640w, assets/img/interior-amarok-v1-960w.webp 960w" sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 980px) 50vw, 33vw" width="960" height="1280" alt="Interior de una camioneta con tapizados y plásticos detallados" loading="lazy" decoding="async">
           <span class="serv-num">03</span>
         </div>
         <div class="serv-body">
@@ -796,7 +860,7 @@ html.static .hero{min-height:920px}
       <!-- 04 -->
       <article class="serv-card rv">
         <div class="serv-media">
-          <img src="assets/img/tiguan-optica.webp" alt="Óptica delantera de una Tiguan restaurada, transparente como de fábrica" loading="lazy" decoding="async">
+          <img src="assets/img/tiguan-optica-v1-720w.webp" srcset="assets/img/tiguan-optica-v1-480w.webp 480w, assets/img/tiguan-optica-v1-720w.webp 720w" sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 980px) 50vw, 33vw" width="720" height="1280" alt="Óptica delantera de una Tiguan restaurada, transparente como de fábrica" loading="lazy" decoding="async">
           <span class="serv-num">04</span>
         </div>
         <div class="serv-body">
@@ -808,7 +872,7 @@ html.static .hero{min-height:920px}
       <!-- 05 -->
       <article class="serv-card rv rv-d1">
         <div class="serv-media">
-          <img src="assets/img/mercedes-c.webp" alt="Mercedes Clase C impecable frente al local, lista para la venta" loading="lazy" decoding="async">
+          <img src="assets/img/mercedes-c-v1-720w.webp" srcset="assets/img/mercedes-c-v1-480w.webp 480w, assets/img/mercedes-c-v1-720w.webp 720w" sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 980px) 50vw, 33vw" width="720" height="1280" alt="Mercedes Clase C impecable frente al local, lista para la venta" loading="lazy" decoding="async">
           <span class="serv-num">05</span>
         </div>
         <div class="serv-body">
@@ -820,7 +884,7 @@ html.static .hero{min-height:920px}
       <!-- 06 -->
       <article class="serv-card rv rv-d2">
         <div class="serv-media">
-          <img src="assets/img/llanta-espuma.webp" alt="Llanta Mercedes AMG cubierta de espuma activa durante el lavado" loading="lazy" decoding="async">
+          <img src="assets/img/llanta-espuma-v1-1280w.webp" srcset="assets/img/llanta-espuma-v1-480w.webp 480w, assets/img/llanta-espuma-v1-1280w.webp 1280w" sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 980px) 50vw, 33vw" width="1280" height="960" alt="Llanta Mercedes AMG cubierta de espuma activa durante el lavado" loading="lazy" decoding="async">
           <span class="serv-num">06</span>
         </div>
         <div class="serv-body">
@@ -845,31 +909,36 @@ html.static .hero{min-height:920px}
 
     <div class="reels">
       <figure class="reel rv">
-        <video src="assets/video/lavado.mp4" muted loop playsinline preload="none" poster="assets/img/glc-espuma.webp" data-poster="assets/img/glc-espuma.webp"></video>
+        <img class="poster" src="assets/img/glc-espuma-v1-1280w.webp" srcset="assets/img/glc-espuma-v1-480w.webp 480w, assets/img/glc-espuma-v1-1280w.webp 1280w" sizes="(max-width: 980px) 72vw, 20vw" width="1280" height="960" alt="" loading="lazy" decoding="async">
+        <video data-src="assets/video/lavado.mp4" muted loop playsinline preload="none" data-poster="assets/img/glc-espuma-v1-1280w.webp"></video>
         <figcaption class="reel-tag"><i></i>Proceso</figcaption>
         <div class="reel-label"><b>Lavado</b><small>Espuma activa + descontaminado</small></div>
         <span class="reel-num">01</span>
       </figure>
       <figure class="reel rv rv-d1">
-        <video src="assets/video/pulido.mp4" muted loop playsinline preload="none" poster="assets/img/amarok-frente.webp" data-poster="assets/img/amarok-frente.webp"></video>
+        <img class="poster" src="assets/img/amarok-frente-v1-1280w.webp" srcset="assets/img/amarok-frente-v1-640w.webp 640w, assets/img/amarok-frente-v1-1280w.webp 1280w" sizes="(max-width: 980px) 72vw, 20vw" width="1280" height="720" alt="" loading="lazy" decoding="async">
+        <video data-src="assets/video/pulido.mp4" muted loop playsinline preload="none" data-poster="assets/img/amarok-frente-v1-1280w.webp"></video>
         <figcaption class="reel-tag"><i></i>Proceso</figcaption>
         <div class="reel-label"><b>Pulido</b><small>Corrección de pintura</small></div>
         <span class="reel-num">02</span>
       </figure>
       <figure class="reel rv rv-d2">
-        <video src="assets/video/pulido-detalle.mp4" muted loop playsinline preload="none" poster="assets/img/llanta-espuma.webp" data-poster="assets/img/llanta-espuma.webp"></video>
+        <img class="poster" src="assets/img/llanta-espuma-v1-1280w.webp" srcset="assets/img/llanta-espuma-v1-480w.webp 480w, assets/img/llanta-espuma-v1-1280w.webp 1280w" sizes="(max-width: 980px) 72vw, 20vw" width="1280" height="960" alt="" loading="lazy" decoding="async">
+        <video data-src="assets/video/pulido-detalle.mp4" muted loop playsinline preload="none" data-poster="assets/img/llanta-espuma-v1-1280w.webp"></video>
         <figcaption class="reel-tag"><i></i>Proceso</figcaption>
         <div class="reel-label"><b>Detalle</b><small>Milímetro por milímetro</small></div>
         <span class="reel-num">03</span>
       </figure>
       <figure class="reel rv rv-d3">
-        <video src="assets/video/proteccion.mp4" muted loop playsinline preload="none" poster="assets/img/proteccion.webp" data-poster="assets/img/proteccion.webp"></video>
+        <img class="poster" src="assets/img/proteccion-v1-576w.webp" srcset="assets/img/proteccion-v1-480w.webp 480w, assets/img/proteccion-v1-576w.webp 576w" sizes="(max-width: 980px) 72vw, 20vw" width="576" height="1024" alt="" loading="lazy" decoding="async">
+        <video data-src="assets/video/proteccion.mp4" muted loop playsinline preload="none" data-poster="assets/img/proteccion-v1-576w.webp"></video>
         <figcaption class="reel-tag"><i></i>Proceso</figcaption>
         <div class="reel-label"><b>Protección</b><small>Sellado y capa protectora</small></div>
         <span class="reel-num">04</span>
       </figure>
       <figure class="reel rv rv-d4">
-        <video src="assets/video/mercedes.mp4" muted loop playsinline preload="none" poster="assets/img/glc-taller.webp" data-poster="assets/img/glc-taller.webp"></video>
+        <img class="poster" src="assets/img/glc-taller-v1-1280w.webp" srcset="assets/img/glc-taller-v1-640w.webp 640w, assets/img/glc-taller-v1-1280w.webp 1280w" sizes="(max-width: 980px) 72vw, 20vw" width="1280" height="720" alt="" loading="lazy" decoding="async">
+        <video data-src="assets/video/mercedes.mp4" muted loop playsinline preload="none" data-poster="assets/img/glc-taller-v1-1280w.webp"></video>
         <figcaption class="reel-tag"><i></i>Entrega</figcaption>
         <div class="reel-label"><b>Resultado</b><small>Listo para deslumbrar</small></div>
         <span class="reel-num">05</span>
@@ -897,16 +966,16 @@ html.static .hero{min-height:920px}
 
   <div class="wrap">
     <div class="gal-strip rv" id="galStrip">
-      <figure class="gal-item wide"><img src="assets/img/glc-taller.webp" alt="Mercedes GLC Coupé gris grafito terminada en el taller" loading="lazy" decoding="async"><figcaption class="gal-cap"><span>Cerámico</span><b>GLC Coupé</b></figcaption></figure>
-      <figure class="gal-item tall"><img src="assets/img/tiguan-frente.webp" alt="Volkswagen Tiguan plata con el frente detallado" loading="lazy" decoding="async"><figcaption class="gal-cap"><span>Lavado detallado premium</span><b>Tiguan</b></figcaption></figure>
-      <figure class="gal-item wide"><img src="assets/img/hrv-frente.webp" alt="Honda HR-V azul con brillo espejo en el taller" loading="lazy" decoding="async"><figcaption class="gal-cap"><span>Tratamiento cerámico</span><b>HR-V</b></figcaption></figure>
-      <figure class="gal-item tall"><img src="assets/img/mercedes-c.webp" alt="Mercedes C 250 AMG plata frente al local" loading="lazy" decoding="async"><figcaption class="gal-cap"><span>Lavado detallado premium</span><b>C 250 AMG</b></figcaption></figure>
-      <figure class="gal-item wide"><img src="assets/img/amarok-shine.webp" alt="Amarok V6 azul noche con pintura corregida" loading="lazy" decoding="async"><figcaption class="gal-cap"><span>Abrillantado</span><b>Amarok V6</b></figcaption></figure>
-      <figure class="gal-item tall"><img src="assets/img/audi-a1.webp" alt="Audi A1 gris detallado frente al local" loading="lazy" decoding="async"><figcaption class="gal-cap"><span>Lavado tradicional</span><b>A1</b></figcaption></figure>
-      <figure class="gal-item wide"><img src="assets/img/hrv-lateral.webp" alt="Honda HR-V azul, lateral con reflejos definidos" loading="lazy" decoding="async"><figcaption class="gal-cap"><span>Tratamiento cerámico</span><b>HR-V</b></figcaption></figure>
-      <figure class="gal-item tall"><img src="assets/img/jetta-local.webp" alt="Volkswagen Vento blanco en la puerta del taller" loading="lazy" decoding="async"><figcaption class="gal-cap"><span>Lavado tradicional</span><b>Vento</b></figcaption></figure>
-      <figure class="gal-item tall"><img src="assets/img/audi-a4.webp" alt="Audi A4 gris con terminación impecable" loading="lazy" decoding="async"><figcaption class="gal-cap"><span>Lavado tradicional</span><b>A4</b></figcaption></figure>
-      <figure class="gal-item wide"><img src="assets/img/amarok-taller.webp" alt="Amarok V6 completa dentro del taller iluminado" loading="lazy" decoding="async"><figcaption class="gal-cap"><span>Abrillantado</span><b>Amarok V6</b></figcaption></figure>
+      <figure class="gal-item wide"><img src="assets/img/glc-taller-v1-1280w.webp" srcset="assets/img/glc-taller-v1-640w.webp 640w, assets/img/glc-taller-v1-1280w.webp 1280w" sizes="(max-width: 640px) 100vw, 66vw" width="1280" height="720" alt="Mercedes GLC Coupé gris grafito terminada en el taller" loading="lazy" decoding="async"><figcaption class="gal-cap"><span>Cerámico</span><b>GLC Coupé</b></figcaption></figure>
+      <figure class="gal-item tall"><img src="assets/img/tiguan-frente-v1-720w.webp" srcset="assets/img/tiguan-frente-v1-480w.webp 480w, assets/img/tiguan-frente-v1-720w.webp 720w" sizes="(max-width: 640px) 72vw, 33vw" width="720" height="1280" alt="Volkswagen Tiguan plata con el frente detallado" loading="lazy" decoding="async"><figcaption class="gal-cap"><span>Lavado detallado premium</span><b>Tiguan</b></figcaption></figure>
+      <figure class="gal-item wide"><img src="assets/img/hrv-frente-v1-1280w.webp" srcset="assets/img/hrv-frente-v1-640w.webp 640w, assets/img/hrv-frente-v1-1280w.webp 1280w" sizes="(max-width: 640px) 100vw, 66vw" width="1280" height="720" alt="Honda HR-V azul con brillo espejo en el taller" loading="lazy" decoding="async"><figcaption class="gal-cap"><span>Tratamiento cerámico</span><b>HR-V</b></figcaption></figure>
+      <figure class="gal-item tall"><img src="assets/img/mercedes-c-v1-720w.webp" srcset="assets/img/mercedes-c-v1-480w.webp 480w, assets/img/mercedes-c-v1-720w.webp 720w" sizes="(max-width: 640px) 72vw, 33vw" width="720" height="1280" alt="Mercedes C 250 AMG plata frente al local" loading="lazy" decoding="async"><figcaption class="gal-cap"><span>Lavado detallado premium</span><b>C 250 AMG</b></figcaption></figure>
+      <figure class="gal-item wide"><img src="assets/img/amarok-shine-v1-1280w.webp" srcset="assets/img/amarok-shine-v1-640w.webp 640w, assets/img/amarok-shine-v1-1280w.webp 1280w" sizes="(max-width: 640px) 100vw, 66vw" width="1280" height="720" alt="Amarok V6 azul noche con pintura corregida" loading="lazy" decoding="async"><figcaption class="gal-cap"><span>Abrillantado</span><b>Amarok V6</b></figcaption></figure>
+      <figure class="gal-item tall"><img src="assets/img/audi-a1-v1-720w.webp" srcset="assets/img/audi-a1-v1-480w.webp 480w, assets/img/audi-a1-v1-720w.webp 720w" sizes="(max-width: 640px) 72vw, 33vw" width="720" height="1280" alt="Audi A1 gris detallado frente al local" loading="lazy" decoding="async"><figcaption class="gal-cap"><span>Lavado tradicional</span><b>A1</b></figcaption></figure>
+      <figure class="gal-item wide"><img src="assets/img/hrv-lateral-v1-1280w.webp" srcset="assets/img/hrv-lateral-v1-640w.webp 640w, assets/img/hrv-lateral-v1-1280w.webp 1280w" sizes="(max-width: 640px) 100vw, 66vw" width="1280" height="720" alt="Honda HR-V azul, lateral con reflejos definidos" loading="lazy" decoding="async"><figcaption class="gal-cap"><span>Tratamiento cerámico</span><b>HR-V</b></figcaption></figure>
+      <figure class="gal-item tall"><img src="assets/img/jetta-local-v1-720w.webp" srcset="assets/img/jetta-local-v1-480w.webp 480w, assets/img/jetta-local-v1-720w.webp 720w" sizes="(max-width: 640px) 72vw, 33vw" width="720" height="1280" alt="Volkswagen Vento blanco en la puerta del taller" loading="lazy" decoding="async"><figcaption class="gal-cap"><span>Lavado tradicional</span><b>Vento</b></figcaption></figure>
+      <figure class="gal-item tall"><img src="assets/img/audi-a4-v1-720w.webp" srcset="assets/img/audi-a4-v1-480w.webp 480w, assets/img/audi-a4-v1-720w.webp 720w" sizes="(max-width: 640px) 72vw, 33vw" width="720" height="1280" alt="Audi A4 gris con terminación impecable" loading="lazy" decoding="async"><figcaption class="gal-cap"><span>Lavado tradicional</span><b>A4</b></figcaption></figure>
+      <figure class="gal-item wide"><img src="assets/img/amarok-taller-v1-1280w.webp" srcset="assets/img/amarok-taller-v1-640w.webp 640w, assets/img/amarok-taller-v1-1280w.webp 1280w" sizes="(max-width: 640px) 100vw, 66vw" width="1280" height="720" alt="Amarok V6 completa dentro del taller iluminado" loading="lazy" decoding="async"><figcaption class="gal-cap"><span>Abrillantado</span><b>Amarok V6</b></figcaption></figure>
     </div>
     <p class="gal-hint rv">Arrastrá para ver más — esto es una muestra, el resto está en <a href="https://www.instagram.com/thekingshine_/" target="_blank" rel="noopener">Instagram</a></p>
   </div>
@@ -916,8 +985,8 @@ html.static .hero{min-height:920px}
      SECCIÓN: BANDA cinemagraph
      ================================================================ -->
 <div class="band" id="banda" role="img" aria-label="Reflejos perfectos sobre la chapa de una camioneta recién detallada">
-  <video class="band-bg" src="assets/video/reflejo.mp4" muted loop playsinline preload="none" poster="assets/img/amarok-shine.webp" data-poster="assets/img/amarok-shine.webp" aria-hidden="true"></video>
-  <video class="band-main" src="assets/video/reflejo.mp4" muted loop playsinline preload="none" poster="assets/img/amarok-shine.webp" data-poster="assets/img/amarok-shine.webp"></video>
+  <img class="band-bg" src="assets/img/amarok-shine-v1-1280w.webp" srcset="assets/img/amarok-shine-v1-640w.webp 640w, assets/img/amarok-shine-v1-1280w.webp 1280w" sizes="100vw" width="1280" height="720" alt="" loading="lazy" decoding="async">
+  <video class="band-main" data-src="assets/video/reflejo.mp4" muted loop playsinline preload="none" data-poster="assets/img/amarok-shine-v1-1280w.webp"></video>
   <div class="wrap">
     <h3 class="d rv">Si no te reflejás, <br><span class="red">todavía no terminamos.</span></h3>
     <p class="rv rv-d1">Control obsesivo de cada panel antes de entregar. Sí, somos así.</p>
@@ -991,9 +1060,9 @@ html.static .hero{min-height:920px}
     <div class="cmp rv rv-d2" id="cmp" role="slider" tabindex="0"
          aria-label="Comparador antes y después: arrastrá la línea para revelar"
          aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
-      <img src="assets/img/cmp-despues.webp" alt="Volkswagen Taos negra impecable después del lavado y detallado" loading="lazy" decoding="async">
+      <img src="assets/img/cmp-despues.webp" width="1240" height="801" alt="Volkswagen Taos negra impecable después del lavado y detallado" loading="lazy" decoding="async">
       <div class="cmp-before-wrap" aria-hidden="true">
-        <img src="assets/img/cmp-antes.webp" alt="" loading="lazy" decoding="async">
+        <img src="assets/img/cmp-antes.webp" width="1240" height="801" alt="" loading="lazy" decoding="async">
       </div>
       <div class="cmp-line" aria-hidden="true"></div>
       <div class="cmp-handle" aria-hidden="true">
@@ -1011,7 +1080,7 @@ html.static .hero{min-height:920px}
      ================================================================ -->
 <section id="contacto">
   <div class="bg" aria-hidden="true">
-    <img src="assets/img/glc-taller.webp" alt="">
+    <img src="assets/img/glc-taller-v1-1280w.webp" srcset="assets/img/glc-taller-v1-640w.webp 640w, assets/img/glc-taller-v1-1280w.webp 1280w" sizes="100vw" width="1280" height="720" alt="" loading="lazy" decoding="async">
   </div>
   <div class="wrap">
     <span class="eyebrow rv">Reservá tu lugar</span>
@@ -1027,14 +1096,15 @@ html.static .hero{min-height:920px}
         <span>Escribinos por WhatsApp</span>
       </a>
     </div>
-    <div class="cta-meta rv rv-d4">
+    <address class="cta-meta rv rv-d4">
       <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 21s-7-5.4-7-11a7 7 0 0 1 14 0c0 5.6-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>11 e/25 y 26, 25 de Mayo, Buenos Aires</span>
       <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>Podés pasar por cualquier consulta</span>
       <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3A19.5 19.5 0 0 1 5.2 13 19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/></svg>+54 9 2345 52-2167</span>
-    </div>
+    </address>
   </div>
 </section>
 
+</main>
 <!-- ================================================================
      SECCIÓN: FOOTER
      ================================================================ -->
@@ -1043,7 +1113,7 @@ html.static .hero{min-height:920px}
     <div class="foot-grid">
       <div class="foot-brand">
         <a class="brand" href="#top" aria-label="The King Shine — inicio">
-          <img src="assets/img/logo.webp" alt="The King Shine — Lavadero &amp; Estética Vehicular" loading="lazy" decoding="async">
+          <img src="assets/img/logo.webp" width="782" height="234" alt="The King Shine — Lavadero &amp; Estética Vehicular" loading="lazy" decoding="async">
         </a>
         <p>Lavadero y estética vehicular en 11 e/25 y 26, 25 de Mayo, Buenos Aires.
         Tratamos cada auto como si fuera nuestro… y a los nuestros los tratamos como reyes.</p>
@@ -1088,14 +1158,8 @@ const STATIC = !!SHOT_M && SHOT_M[1] === 'static';
 if (SHOT_M) document.documentElement.classList.add('shot');
 if (STATIC) {
   document.documentElement.classList.add('static');
-  document.querySelectorAll('video[data-poster]').forEach(v => {
-    const img = document.createElement('img');
-    img.src = v.dataset.poster;
-    img.className = v.className || '';
-    img.alt = '';
-    if (!img.className && v.closest('.reel,.band')) img.classList.add('poster');
-    v.replaceWith(img);
-  });
+  document.querySelectorAll('.hero-poster, .reel img.poster, .band .band-bg').forEach(img => { img.loading = 'eager'; });
+  document.querySelectorAll('video[data-poster]').forEach(v => v.remove());
 }
 
 // Salto instantáneo a la sección pedida en modo captura
@@ -1128,13 +1192,122 @@ const io = new IntersectionObserver(es => es.forEach(e => {
 }), {threshold:.12, rootMargin:'0px 0px -6% 0px'});
 document.querySelectorAll('.rv').forEach(el => io.observe(el));
 
-// Autoplay de videos solo cuando están en pantalla
-if (!STATIC) {
-  const vio = new IntersectionObserver(es => es.forEach(e => {
-    const v = e.target;
-    if (e.isIntersecting) { v.play().catch(()=>{}); } else { v.pause(); }
+// Videos: póster primero; los clips se conectan cerca del viewport y sólo con una red adecuada.
+const mediaConnection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const slowConnection = mediaConnection?.saveData || ['slow-2g', '2g', '3g'].includes(mediaConnection?.effectiveType);
+const canAutoplayVideo = !STATIC && !reducedMotion && !slowConnection;
+const videos = [...document.querySelectorAll('video[data-src]')];
+const heroVideo = document.querySelector('.hero-video');
+
+if (canAutoplayVideo && videos.length) {
+  const MAX_CONCURRENT_VIDEO_LOADS = 2;
+  const videoQueue = [];
+  let activeVideoLoads = 0;
+  let heroReady = false;
+
+  function queueVideo(video, priority = false) {
+    if (!video.dataset.src || video.dataset.loadState) return;
+    video.dataset.loadState = 'queued';
+    priority ? videoQueue.unshift(video) : videoQueue.push(video);
+    pumpVideoQueue();
+  }
+
+  function pumpVideoQueue() {
+    while (activeVideoLoads < MAX_CONCURRENT_VIDEO_LOADS && videoQueue.length) {
+      const video = videoQueue.shift();
+      if (!video || video.dataset.loadState !== 'queued') continue;
+
+      activeVideoLoads += 1;
+      video.dataset.loadState = 'loading';
+      let complete = false;
+      const finish = () => {
+        if (complete) return;
+        complete = true;
+        clearTimeout(timeout);
+        activeVideoLoads -= 1;
+        video.dataset.loadState = 'ready';
+        pumpVideoQueue();
+      };
+      const timeout = setTimeout(finish, 15000);
+
+      video.addEventListener('loadeddata', finish, {once:true});
+      video.addEventListener('error', finish, {once:true});
+      video.preload = 'metadata';
+      video.src = video.dataset.src;
+      video.load();
+    }
+  }
+
+  function requestPlayback(video) {
+    if (video.dataset.inViewport !== 'true' || document.hidden) return;
+    queueVideo(video, video === heroVideo);
+    if (video.dataset.playPending === 'true') return;
+
+    const play = () => {
+      video.dataset.playPending = 'false';
+      if (video.dataset.inViewport !== 'true' || document.hidden) return;
+      video.play().then(() => video.classList.add('is-playing')).catch(() => {});
+    };
+
+    if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+      play();
+    } else {
+      video.dataset.playPending = 'true';
+      video.addEventListener('canplay', play, {once:true});
+    }
+  }
+
+  function pauseVideo(video) {
+    video.dataset.inViewport = 'false';
+    video.dataset.playPending = 'false';
+    video.pause();
+    video.classList.remove('is-playing');
+  }
+
+  const preloadObserver = new IntersectionObserver(entries => entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    queueVideo(entry.target);
+    preloadObserver.unobserve(entry.target);
+  }), {rootMargin:'600px 0px', threshold:0});
+
+  const playbackObserver = new IntersectionObserver(entries => entries.forEach(entry => {
+    const video = entry.target;
+    if (!entry.isIntersecting) {
+      pauseVideo(video);
+      return;
+    }
+    video.dataset.inViewport = 'true';
+    if (video !== heroVideo || heroReady) requestPlayback(video);
   }), {threshold:.25});
-  document.querySelectorAll('video').forEach(v => vio.observe(v));
+
+  videos.forEach(video => {
+    playbackObserver.observe(video);
+    if (video !== heroVideo) preloadObserver.observe(video);
+  });
+
+  if (heroVideo) {
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      heroReady = true;
+      const bounds = heroVideo.getBoundingClientRect();
+      const visible = bounds.top < innerHeight && bounds.bottom > 0;
+      heroVideo.dataset.inViewport = visible ? 'true' : 'false';
+      if (visible) requestPlayback(heroVideo);
+    }));
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      videos.forEach(video => {
+        video.pause();
+        video.classList.remove('is-playing');
+      });
+    } else {
+      videos.forEach(video => {
+        if (video.dataset.inViewport === 'true') requestPlayback(video);
+      });
+    }
+  });
 }
 
 // Galería: flechas + drag
